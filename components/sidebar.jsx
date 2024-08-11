@@ -25,7 +25,7 @@ export default function Sidebar({ children }) {
         {/* Sidebar Header */}
         <div className="p-4 flex justify-between items-center border-b border-gray-700">
           <span
-            className={`text-xl font-bold text-gray-200 transition-opacity duration-300 ${
+            className={`text-xl font-bold text-yellow-500 transition-opacity duration-300 ${
               expanded ? "opacity-100" : "opacity-0"
             }`}
           >

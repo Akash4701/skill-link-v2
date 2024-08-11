@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(protected)/_components/sidebar.jsx",
+    "components/sidebar.jsx",
     "**/*.jsx"
   ],
   "exclude": ["node_modules"]

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useState, useEffect } from 'react';
 import Data from '@/utils/SearchData/data.json';
@@ -17,28 +17,38 @@ function Page() {
   }, []);
 
   useEffect(() => {
-    const query = searchParams.get('query');
-    const filter = searchParams.get('filter');
-
     let filtered = data;
+    const query = searchParams.get('query');
+    const filters = {};
 
-    if (query) {
-      if (filter && filter !== '') {
-        filtered = filtered.filter(item =>
-          item[filter] && item[filter].toLowerCase().includes(query.toLowerCase())
-        );
-      } else {
-        // If no filter is applied, search by username
-        filtered = filtered.filter(item =>
-          item.username && item.username.toLowerCase().includes(query.toLowerCase())
-        );
+    // Collect all applied filters
+    for (const [key, value] of searchParams.entries()) {
+      if (key !== 'query') {
+        filters[key] = value;
       }
     }
+
+    // Apply filters
+    filtered = filtered.filter(item => {
+      // Check all filters
+      for (const [key, value] of Object.entries(filters)) {
+        
+        if (!item[key] || !item[key].toLowerCase().includes(value.toLowerCase())) {
+          return false;
+        }
+      }
+
+      // If query exists, check username (default search)
+      if (query && (!item.username || !item.username.toLowerCase().includes(query.toLowerCase()))) {
+        return false;
+      }
+
+      return true;
+    });
 
     setFilteredData(filtered);
   }, [searchParams, data]);
 
-  // Uncomment and adjust ScrollReveal as needed
   useEffect(() => {
     ScrollReveal().reveal('.reveal', {
       duration: 1000,
@@ -51,7 +61,7 @@ function Page() {
 
   return (
     <>
-      <p>ygygqygygs</p>
+      <p>Search Results</p>
       <h2 className="text-2xl font-bold mb-4 text-blue-600 reveal">SearchList</h2>
 
       <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md reveal">
