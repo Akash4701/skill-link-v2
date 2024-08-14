@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const UserGender = z.enum(["male", "female", "others"]);
-
 export const SettingsSchema = z
   .object({
     name: z.string().optional(),
@@ -14,12 +13,12 @@ export const SettingsSchema = z
       .string()
       .min(6, { message: "Minimum of 6 characters required for new password" })
       .optional(),
-    primarySkill:z.string().optional(),
-    secondarySkills:z.string().optional(),
+    primarySkill: z.string().optional(),
+    secondarySkills: z.string().optional(),
     country: z.string().optional(),
     location: z.string().optional(),
     posts: z.array(z.string()).optional(),
-    about:z.string(),
+    about: z.string(),
     projects: z
       .array(z.string().url({ message: "Invalid URL format" }))
       .optional(),
@@ -39,7 +38,7 @@ export const SettingsSchema = z
     {
       message: "New password is required if password is provided!",
       path: ["newPassword"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -51,7 +50,7 @@ export const SettingsSchema = z
     {
       message: "Password is required if new password is provided!",
       path: ["password"],
-    }
+    },
   );
 
 export const NewPasswordSchema = z.object({
@@ -84,13 +83,4 @@ export const RegisterSchema = z.object({
     const date = new Date(val);
     return !isNaN(date.getTime());
   }, "Invalid date format"),
-
 });
-
-
-
-export const postPatchSchema = z.object({
-  title: z.string().min(3).max(128),
-  slug: z.string().min(3).max(128).optional(),
-  content: z.any(),
-})

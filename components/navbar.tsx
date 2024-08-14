@@ -4,7 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@/components/auth/user-button";
+
 import SearchBar from "./search-bar";
+
+
+
+
+import { PostCreateButton } from "@/components/post-create-button";
+
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -24,6 +31,7 @@ export const Navbar = () => {
               <Link href="/posts" className="text-white rounded-full font-bold">Create Post</Link>
             </Button>
 <UserButton />
+<PostCreateButton/>
             </div>
       </div>
     </nav>

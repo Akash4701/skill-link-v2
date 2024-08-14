@@ -4,6 +4,7 @@ const nextConfig = {}
 module.exports = nextConfig
 module.exports = {
     images: {
-      domains: ['media.dev.to'],
+      domains: ['utfs.io','media.dev.to'],
     },
   };
+

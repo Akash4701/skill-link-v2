@@ -43,22 +43,19 @@ model User {
 
 model Post {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
- 
-
   title     String
   content   Json?
-  slug      String?
   published Boolean  @default(false)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
-  authorId  String
+  authorId  String   @db.ObjectId
 
   author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
-
-  comments Comment[]
-  likes    Vote[]
+ 
+  votes       Vote[]
+ 
 }
 
 model Account {
@@ -112,8 +109,7 @@ model Comment {
 
   // Other relationships
   author User? @relation(fields: [authorId], references: [id])
-  post   Post? @relation(fields: [postId], references: [id])
-
+  
   votes CommentVote[]
 
   // Indexes
@@ -125,20 +121,20 @@ model Comment {
 model Vote {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
   userId String
+  post   Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
   type   VoteType
 
   // Relations for documentation/reference
   user User? @relation(fields: [userId], references: [id])
-  post Post? @relation(fields: [postId], references: [id])
-
+ 
   // Index for efficient querying
   @@index([userId, postId])
 }
 
 enum VoteType {
-  Like
-  Dislike
+  UP
+  DOWN
 }
 
 model CommentVote {
