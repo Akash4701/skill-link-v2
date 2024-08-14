@@ -1,5 +1,5 @@
-import { Navbar } from "../../components/navbar";
-import Sidebar, { SidebarItem } from "../../components/sidebar";
+import { Navbar } from "@/components/navbar";
+import Sidebar, { SidebarItem } from "@/components/sidebar";
 import { LayoutDashboard, Home, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings } from "lucide-react";
 
 interface ProtectedLayoutProps {
